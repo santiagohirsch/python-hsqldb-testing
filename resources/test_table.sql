@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS user (
+    id INT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    hashed_password VARCHAR(255) NOT NULL
+);
