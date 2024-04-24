@@ -1,6 +1,6 @@
 run_tests:
 	@echo "Running tests..."
-	pytest ./src/tests/*_test.py
+	pytest ./tests/*_test.py
 
 clean:
 	@echo "Cleaning up..."
@@ -8,3 +8,4 @@ clean:
 	rm -rf .pytest_cache
 	rm -rf ./src/__pycache__
 	rm -rf ./src/*/__pycache__
+	rm -rf ./tests/__pycache__

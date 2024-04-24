@@ -16,21 +16,24 @@ The project structure is the following:
     ├── README.md
     ├── __init__.py
     ├── app.py
-    └── src
+    ├── resources
+    │   ├── test_inserts.sql
+    │   └── test_table.sql
+    ├── src
+    │   ├── __init__.py
+    │   ├── models
+    │   │   ├── __init__.py
+    │   │   └── user.py
+    │   ├── persistence
+    │   │   ├── __init__.py
+    │   │   └── user_dao.py
+    │   └── schemas
+    │       ├── __init__.py
+    │       └── user_schema.py
+    └── tests
         ├── __init__.py
-        ├── models
-        │   ├── __init__.py
-        │   └── user.py
-        ├── persistence
-        │   ├── __init__.py
-        │   └── user_dao.py
-        ├── schemas
-        │   ├── __init__.py
-        │   └── user_schema.py
-        └── tests
-            ├── __init__.py
-            ├── test_setup.py
-            └── user_dao_test.py
+        ├── test_setup.py
+        └── user_dao_test.py
     ```
 
 ### Running the tests
