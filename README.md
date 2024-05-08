@@ -16,9 +16,12 @@ The project structure is the following:
     ├── README.md
     ├── __init__.py
     ├── app.py
+    ├── out.txt
     ├── resources
     │   ├── test_inserts.sql
-    │   └── test_table.sql
+    │   ├── test_table.sql
+    │   ├── test_table_teardown.sql
+    │   └── test_teardown.sql
     ├── src
     │   ├── __init__.py
     │   ├── models
@@ -42,6 +45,12 @@ In order to run the tests execute the following command:
 
     ```sh
     make run_tests
+    ```
+
+If you want to run the tests with prints that show the flow of the tests execute the following command:
+
+    ```sh
+    make run_tests_with_prints
     ```
 
 ### Clean

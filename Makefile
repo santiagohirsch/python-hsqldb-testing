@@ -9,3 +9,7 @@ clean:
 	rm -rf ./src/__pycache__
 	rm -rf ./src/*/__pycache__
 	rm -rf ./tests/__pycache__
+
+run_tests_with_prints:
+	@echo "Running tests with prints..."
+	pytest -s ./tests/*_test.py
