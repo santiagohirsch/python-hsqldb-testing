@@ -1,33 +1,29 @@
 import pytest
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
-from app import Base
+from app import Base, SessionLocal, Engine
 
 @pytest.fixture(scope="module")
-def db():
-    engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
+def setup_database():
+    print("\nSetting up database")
+    Base.metadata.create_all(bind=Engine)
+    yield SessionLocal()
+    print("\n\n\nTearing down database")
+    Base.metadata.drop_all(bind=Engine)
 
-    # Create session
-    TestSession = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-    Base.metadata.create_all(bind=engine)
-    session = TestSession()
-
-    # Execute SQL script to create and populate test data
+@pytest.fixture(scope="function")
+def setup_function():
+    engine = Engine
+    print("\n\n\nSetting up function")
     with engine.connect() as conn:
         with conn.begin():
-            with open("resources/test_table.sql", "r") as f:
+            with open("resources/test_inserts.sql", "r") as f:
                 create_table_sql = f.read()
             conn.execute(text(create_table_sql))
-            with open("resources/test_inserts.sql", "r") as f:
-                insert_data_sql = f.read()
-            conn.execute(text(insert_data_sql))
-
-
-
-    yield session
-    session.close()
-
-@pytest.fixture(scope="module", autouse=True)
-def cleanup(request, db):
     yield
-    db.close()
+    print("\nTearing down function")
+    with engine.connect() as conn:
+        with conn.begin():
+            with open("resources/test_teardown.sql", "r") as f:
+                create_table_sql = f.read()
+            conn.execute(text(create_table_sql))
