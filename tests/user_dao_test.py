@@ -1,7 +1,7 @@
 import pytest
 from sqlalchemy import text
 from src.schemas.user_schema import UserCreate
-from src.persistence.user_dao import create_user, get_user, update_user, delete_user, count_users, count_users_where_email
+from src.persistence.user_dao import create_user, get_user, update_user, delete_user
 from tests.test_setup import setup_database, setup_function
 
 # DEFAULT DATABASE SETUP
@@ -10,6 +10,13 @@ from tests.test_setup import setup_database, setup_function
 #     (1, 'user1@example.com', 'examplenotreallyhashed1'),
 #     (2, 'user2@example.com', 'examplenotreallyhashed2'),
 #     (3, 'user3@example.com', 'examplenotreallyhashed3');
+
+
+def count_users(db):
+   return db.execute(text("SELECT COUNT(*) FROM user")).fetchone()[0]
+
+def count_users_where_email(db, email):
+   return db.execute(text("SELECT COUNT(*) FROM user WHERE email = :email"), {"email": email}).fetchone()[0]
 
 
 @pytest.mark.parametrize(

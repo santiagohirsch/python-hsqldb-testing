@@ -25,9 +25,3 @@ def delete_user(db: Session, user_id: int) -> int:
    db.delete(db_user)
    db.commit()
    return user_id
-
-def count_users(db: Session) -> int:
-   return db.query(User).count()
-
-def count_users_where_email(db: Session, email: str) -> int:
-   return db.query(User).filter(User.email == email).count()
